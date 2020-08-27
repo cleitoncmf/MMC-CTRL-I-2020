@@ -1,8 +1,21 @@
+import matplotlib.pyplot as plt
+
+
+# The argument must be a list of frames
 def bodeFromDataFrame(dataFrameList):
+    if not isinstance(dataFrameList, list):
+        raise Exception("The argument is not a list") 
+
     fig, ax = plt.subplots(2,figsize=(15, 7))
     for item in dataFrameList:
-        line0, = ax[0].plot(item['f'].to_numpy(), item['magdB'].to_numpy())
-        line1, = ax[1].plot(item['f'].to_numpy(), item['phaseDegree'].to_numpy())
+        if 'f' not in item.columns:
+            raise Exception("The data frame does not have the column f") 
+        if 'Mag_dB' not in item.columns:
+            raise Exception("The data frame does not have the column Mag_dB") 
+        if 'phi' not in item.columns:
+            raise Exception("The data frame does not have the column phi") 
+        line0, = ax[0].plot(item['f'].to_numpy(), item['Mag_dB'].to_numpy())
+        line1, = ax[1].plot(item['f'].to_numpy(), item['phi'].to_numpy())
     ax[0].set_xscale('log')
     ax[1].set_xscale('log')
     ax[1].set_xlabel('Frequency - Hz')
