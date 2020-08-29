@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt
-
+import mplcursors # modeule for cursors 
 
 # The argument must be a list of frames
 def bodeFromDataFrame(dataFrameList):
@@ -27,4 +27,15 @@ def bodeFromDataFrame(dataFrameList):
     ax[1].grid(which='minor',color='k', linestyle='--', linewidth=0.5, alpha=0.7,dash_capstyle='butt',dashes=(5, 5))
     #ax[0].set_xticklabels([])
     fig.align_ylabels(ax[:])
+    
+    # Configure the data cursor  
+    c2 = mplcursors.cursor(multiple=True) # enabling the cursor
+    @c2.connect("add")
+    def _(sel):
+        xi, yi = sel.target
+        #gain_dBi = teste.loc[teste['f']==xi,'w'].values[0]
+        sel.annotation.set_text(f"Freq.: {xi:.2f}Hz\nGain: {yi:.2f} dB\nPhase: {yi:.2f} deg\nValue: {yi:.2f}")
+
+
+    plt.show()
     return fig, ax
