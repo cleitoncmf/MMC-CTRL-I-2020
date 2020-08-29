@@ -48,4 +48,6 @@ teste = DataFrameFromRF(G =mmc_ctrl_i_0.Yac, s = s)
 teste2 = DataFrameFromRF(G =-2*mmc_ctrl_i_0.Yac, s = s)
 #teste.head()
 
-bodeFromDataFrame([teste,teste2])
+fig1,ax1 = bodeFromDataFrame([teste,teste2])
+
+fig1.savefig('fig1.pdf',dpi=300)
