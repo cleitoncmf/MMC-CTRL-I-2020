@@ -32,7 +32,7 @@ mmc_ctrl_i_0 = MMC_CTRL_NRF_I(Ci = Ci_0, s = s, Converter=mmc_0)
 # different controllers 
 
 Ci_10 = LINEARCTRL(type='PR',kp=0.001, kr=0.01,d=0,w0=2*np.pi*60,s=s)
-Ci_20 = LINEARCTRL(type='PR',kp=0.01, kr=0.01,d=0,w0=2*np.pi*60,s=s)
+Ci_20 = LINEARCTRL(type='PR',kp=0.00001, kr=0.01,d=0,w0=2*np.pi*60,s=s)
 
 
 # Models for the different control settings
@@ -45,9 +45,15 @@ from DataFrameFromRF import DataFrameFromRF
 from bodeFromDataFrame import bodeFromDataFrame
 
 teste = DataFrameFromRF(G =mmc_ctrl_i_0.Yac, s = s)
-teste2 = DataFrameFromRF(G =-2*mmc_ctrl_i_0.Yac, s = s)
+teste2 = DataFrameFromRF(G =mmc_ctrl_i_10.Yac, s = s)
+teste3 = DataFrameFromRF(G =mmc_ctrl_i_20.Yac, s = s)
 #teste.head()
 
-fig1,ax1 = bodeFromDataFrame([teste,teste2])
+# fig1,ax1 = bodeFromDataFrame([teste,teste2])
+# fig1.savefig('fig1.pdf',dpi=300)
 
-fig1.savefig('fig1.pdf',dpi=300)
+
+from rfPolarPlotFromDataFrame import rfPolarPlotFromDataFrame
+
+fig3,ax3 = rfPolarPlotFromDataFrame([teste,teste2,teste3], plotUnitaryCircle=False)
+fig3.savefig('fig3.pdf',dpi=300)
