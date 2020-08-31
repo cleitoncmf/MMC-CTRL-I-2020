@@ -55,5 +55,5 @@ teste3 = DataFrameFromRF(G =mmc_ctrl_i_20.Yac, s = s)
 
 from rfPolarPlotFromDataFrame import rfPolarPlotFromDataFrame
 
-fig3,ax3 = rfPolarPlotFromDataFrame([teste,teste2,teste3], plotUnitaryCircle=False)
+fig3,ax3 = rfPolarPlotFromDataFrame([teste,teste2,teste3], plotUnitaryCircle=False, plotAxis=True)
 fig3.savefig('fig3.pdf',dpi=300)

@@ -5,7 +5,7 @@ from scipy.interpolate import interp1d
 import matplotlib.patches as mpatches
 
 
-def rfPolarPlotFromDataFrame(dataFrameList, plotUnitaryCircle=False):
+def rfPolarPlotFromDataFrame(dataFrameList, plotUnitaryCircle=False, plotAxis=False):
     if not isinstance(dataFrameList, list):
         raise Exception("The argument is not a list") 
 
@@ -36,6 +36,19 @@ def rfPolarPlotFromDataFrame(dataFrameList, plotUnitaryCircle=False):
         line0, = ax.plot(xReal, yImag,'.')
         
         Lines.append(id(line0))
+
+
+    # Configure the aesthetic pattern the plot 
+
+    ax.autoscale(enable=True, axis='x', tight=True)
+    ax.autoscale(enable=True, axis='y', tight=True)
+
+    if(plotAxis):
+        xlim = ax.get_xlim() 
+        ylim = ax.get_ylim()
+
+        ax.arrow(xlim[0], 0, xlim[1]-xlim[0], 0, length_includes_head=True, linewidth=0.50, color='k', alpha=0.5, head_length=(xlim[1]-xlim[0])*0.02, head_width=(ylim[1]-ylim[0])*0.015)
+        ax.arrow(0, ylim[0], 0, ylim[1]-ylim[0], length_includes_head=True, linewidth=0.50, color='k', alpha=0.5, head_length=(ylim[1]-ylim[0])*0.02, head_width=(xlim[1]-xlim[0])*0.015)
 
     if (plotUnitaryCircle):
         p = mpatches.Circle((0, 0), 1, alpha=0.1, edgecolor='k', facecolor='g', linestyle='--')
