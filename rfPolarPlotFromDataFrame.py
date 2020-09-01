@@ -5,7 +5,7 @@ from scipy.interpolate import interp1d
 import matplotlib.patches as mpatches
 
 
-def rfPolarPlotFromDataFrame(dataFrameList, plotUnitaryCircle=False, plotAxis=False):
+def rfPolarPlotFromDataFrame(dataFrameList, plotUnitaryCircle=False, plotAxis=False, tight = False):
     if not isinstance(dataFrameList, list):
         raise Exception("The argument is not a list") 
 
@@ -39,9 +39,9 @@ def rfPolarPlotFromDataFrame(dataFrameList, plotUnitaryCircle=False, plotAxis=Fa
 
 
     # Configure the aesthetic pattern the plot 
-
-    ax.autoscale(enable=True, axis='x', tight=True)
-    ax.autoscale(enable=True, axis='y', tight=True)
+    if(tight):
+        ax.autoscale(enable=True, axis='x', tight=True)
+        ax.autoscale(enable=True, axis='y', tight=True)
 
     if(plotAxis):
         xlim = ax.get_xlim() 
